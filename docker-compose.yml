@@ -30,6 +30,8 @@ services:
       - db-network
     volumes:
       - db-vol:/var/lib/postgresql/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     env_file:
       - db.env
   db-bootstrap:
@@ -66,6 +68,9 @@ services:
     secrets:
       - org.opendatakit.aggregate.security.properties
       - org.opendatakit.aggregate.jdbc.properties
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
   web-ui:
     image: odk/sync-web-ui
     networks:
@@ -111,6 +116,7 @@ volumes:
   # these 2 need to be removed together
   ldap-vol: # preserve ldap db
   ldap-slapd.d-vol: # preserve ldap settings
+  
 
 configs:
   # uncomment this to import a CA certificate into the Sync service
